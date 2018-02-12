@@ -8,4 +8,4 @@
 - jest will ignore any path with /node_modules/ in it by default
 - see: https://facebook.github.io/jest/docs/en/configuration.html#coveragepathignorepatterns-array-string
 
-- My workaround: copy '/assesment-js/..' to a different parent directory and re-run npm install
+- My workaround: copy '/assesment-js/..' to a different parent directory, re-run npm install.

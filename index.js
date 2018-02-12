@@ -7,7 +7,21 @@ exports.example = () => {
     return 'hello world';
 };
 
-exports.stripPrivateProperties = () => {};
+exports.stripPrivateProperties = (secrets, people) => {
+    var sanitizedPeople = [];
+    people.forEach(person => {
+        var sanitizedPerson = {};
+        for (var key in person) {
+            if ((person.hasOwnProperty(key)) && (!secrets.includes(key))) {
+                sanitizedPerson[key] = person[key];
+            }
+        }
+        sanitizedPeople.push(sanitizedPerson);
+    });
+    return sanitizedPeople;
+};
+
+
 exports.excludeByProperty = () => {};
 exports.sumDeep = () => {};
 exports.applyStatusColor = () => {};
