@@ -22,7 +22,10 @@ exports.stripPrivateProperties = (secrets, people) => {
 };
 
 
-exports.excludeByProperty = () => {};
+exports.excludeByProperty = (property, payload) => {
+    return payload.filter(entry => !entry.hasOwnProperty(property))
+};
+
 exports.sumDeep = () => {};
 exports.applyStatusColor = () => {};
 exports.createGreeting = () => {};
