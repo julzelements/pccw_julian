@@ -59,11 +59,11 @@ exports.applyStatusColor = (colors, statuses) => {
     });
 };
 
+exports.createGreeting = (greeterFunc, phrase) => {
+    return (name) => (phrase + ' ' + name);
+};
 
-
-exports.createGreeting = () => {};
 exports.setDefaults = () => {};
-
 exports.sanitizeUser = () => {
     var foundUsersFirstname;
 
