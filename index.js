@@ -26,7 +26,12 @@ exports.excludeByProperty = (property, payload) => {
     return payload.filter(entry => !entry.hasOwnProperty(property))
 };
 
-exports.sumDeep = () => {};
+exports.sumDeep = (payload) => {
+    const reducer = (accum, element) => accum + element.val;
+    const sumTheObject = (element) => element.objects.reduce(reducer, 0);
+    return payload.map(sumTheObject).map(sum => ({ objects: sum }));
+};
+
 exports.applyStatusColor = () => {};
 exports.createGreeting = () => {};
 exports.setDefaults = () => {};
