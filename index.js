@@ -32,7 +32,35 @@ exports.sumDeep = (payload) => {
     return payload.map(sumTheObject).map(sum => ({ objects: sum }));
 };
 
-exports.applyStatusColor = () => {};
+exports.applyStatusColor = (colors, statuses) => {
+
+    var colorLookup = {};
+    function populateColorLookup(color, statuses, colorLookup) {
+        statuses.forEach((code) => {
+            colorLookup[code] = color;
+        })
+    }
+
+    Object.entries(colors).forEach(
+        ([color, codeArray]) => {
+            populateColorLookup(color, codeArray, colorLookup);
+        }
+    );
+
+    const validStatuses = statuses.filter(status => (colorLookup.hasOwnProperty(status['status'])));
+
+     return validStatuses.map(element => {
+        const status = element['status'];
+        const color = (colorLookup[status]);
+        return {
+            'color': color,
+            'status': status
+        }
+    });
+};
+
+
+
 exports.createGreeting = () => {};
 exports.setDefaults = () => {};
 
