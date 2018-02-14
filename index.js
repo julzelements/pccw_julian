@@ -3,6 +3,11 @@
  * See problem 0 in the spec file for the assertion
  * @returns {string}
  */
+
+const has = Object.prototype.hasOwnProperty;
+// Yes, I know this is global, but it was a recommendation by the airbnb style guide.
+// Don't call Object.prototype directly: https://github.com/airbnb/javascript#objects--prototype-builtins
+
 exports.example = () => 'hello world';
 
 exports.stripPrivateProperties = (secrets, people) => {
