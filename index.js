@@ -69,7 +69,7 @@ exports.setDefaults = (defaultProps) => {
 
 exports.sanitizeUser = (user) => {
   const newUser = user;
-  const log = msg => (console.log(msg));
+  const log = msg => (console.log(msg)); // I've added this here so that a logger can be injected
   const isString = element => (Object.prototype.toString.call(element) === '[object String]');
 
   const getFirstName = (fullName) => {
@@ -80,23 +80,24 @@ exports.sanitizeUser = (user) => {
     return '';
   };
 
-  newUser.firstName = getFirstName(newUser.name);
-
-  if (newUser.address.num && newUser.address.street && newUser.address.suburb) {
-    newUser.fullAddress = `${newUser.address.num} ${newUser.address.street}, ${newUser.address.suburb}`;
-  }
-
   const getMonthJoined = (month) => {
     const validMonths = [...Array(12).keys()];
     if (validMonths.includes(parseInt(month, 10))) {
       return month + 1;
     }
-    log('invalid monthJoined: wrong type or out of range');
+    log('invalid monthJoined: wrong type or out of expected range');
     return month;
   };
 
-  if (newUser.monthJoined) {
-    newUser.monthJoined = getMonthJoined(newUser.monthJoined);
+  const getAddress = addressField => addressField || '';
+  newUser.fullAddress = `${getAddress(user.address.num)} ${getAddress(user.address.street)}, ${getAddress(user.address.suburb)}`;
+
+  if (user.name) {
+    newUser.firstName = getFirstName(user.name);
+  }
+
+  if (user.monthJoined) {
+    newUser.monthJoined = getMonthJoined(user.monthJoined);
   }
 
   return newUser;
