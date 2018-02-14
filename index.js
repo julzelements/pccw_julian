@@ -21,7 +21,6 @@ exports.stripPrivateProperties = (secrets, people) => {
     return sanitizedPeople;
 };
 
-
 exports.excludeByProperty = (property, payload) => {
     return payload.filter(entry => !entry.hasOwnProperty(property))
 };
@@ -77,12 +76,19 @@ exports.setDefaults = (defaultProps) => {
     return applyDefaults;
 };
 
-exports.sanitizeUser = () => {
-    var foundUsersFirstname;
+exports.sanitizeUser = (user) => {
+    const log = (msg) => (console.log(msg)); 
 
-    // Create a helper that converts the users name to an array
-    function getNameArray() {
-        return user.name.split('');
+    var foundUsersFirstname;
+    
+    const isNumber = (element) => (Object.prototype.toString.call(element) === `[object Number]`);
+    const isString = (element) => (Object.prototype.toString.call(element) === `[object String]`);
+
+    if (isString(user.name)) {
+
+    } else {
+        log('User name is not a valid String');
+        return '';
     }
 
     // Ensure a user has an `fullAddress` property by combining `address.streetNum, address.streetName, address.suburb`
@@ -91,23 +97,15 @@ exports.sanitizeUser = () => {
     }
 
     // The given user always returns the `monthJoined` as 0 to 11. We need it to be 1 to 12 so add 1.
+    if (user.monthJoined)
     user.monthJoined = user.monthJoined + 1;
 
-    // The users name is their full name. We want easy access to the first name.
-    for (i = 0; i < getNameArray().length; i++) {
 
-        // Make sure `firstName` exists and is a String
-        if (!user.firstName) user.firstName = '';
-
-        // We can detect the first name by assuming it is separated with a space. So check if the current character is a space.
-        if (!foundUsersFirstname) foundUsersFirstname = getNameArray()[i] != ' ' ? false : true;
-
-        // If we haven't found the first name yet, append the next character
-        if (getNameArray()[i] && !foundUsersFirstname) {
-            user.firstName = user.firstName + getNameArray()[i];
-        }
-    }
+    user.firstName = getNameArray(user.name)[0];
+    
 
     return user;
 };
+
+
 

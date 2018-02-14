@@ -52,10 +52,17 @@
     "name": "Console Connect"
   },
   "dependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
     "jest": "^22.0.4"
   },
   "description": "JS Assessment",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
   "directories": {},
   "dist": {
     "shasum": "8975444ffc04b112cb8a4c3b5af0d80d0923cd30",
