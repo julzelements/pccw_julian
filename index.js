@@ -63,7 +63,20 @@ exports.createGreeting = (greeterFunc, phrase) => {
     return (name) => (phrase + ' ' + name);
 };
 
-exports.setDefaults = () => {};
+exports.setDefaults = (defaultProps) => {
+    const applyDefaults = (user) => {
+        const userKeys = Object.keys(user);
+        const defaultKeys = Object.keys(defaultProps);
+        const checkForMissingKeys = (defaultKey => !userKeys.includes(defaultKey));
+        const missingDefaultKeys = defaultKeys.filter(checkForMissingKeys);
+
+        var newUser = user;
+        missingDefaultKeys.forEach((key) => newUser[key] = defaultProps[key]);
+        return newUser;
+    };
+    return applyDefaults;
+};
+
 exports.sanitizeUser = () => {
     var foundUsersFirstname;
 
