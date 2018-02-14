@@ -11,17 +11,23 @@ const has = Object.prototype.hasOwnProperty;
 exports.example = () => 'hello world';
 
 exports.stripPrivateProperties = (secrets, people) => {
-  const sanitizedPeople = [];
-  people.forEach((person) => {
-    const sanitizedPerson = {};
-    for (const key in person) {
-      if ((person.hasOwnProperty(key)) && (!secrets.includes(key))) {
-        sanitizedPerson[key] = person[key];
-      }
-    }
-    sanitizedPeople.push(sanitizedPerson);
-  });
-  return sanitizedPeople;
+  const keys = person => Object.keys(person);
+  const cleanKeys = key => !secrets.includes(key);
+
+  const arrayToObject = (object, currentValue) => {
+    object[currentValue[0]] = currentValue[1];
+    return object;
+  };
+
+  const cleanAPerson = (person) => {
+    const cleanPerson = keys(person)
+      .filter(cleanKeys)
+      .map(key => [key, person[key]])
+      .reduce(arrayToObject, {});
+    return cleanPerson;
+  };
+
+  return people.map(cleanAPerson);
 };
 
 exports.excludeByProperty = (flag, payload) => {
