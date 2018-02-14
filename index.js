@@ -24,7 +24,10 @@ exports.stripPrivateProperties = (secrets, people) => {
   return sanitizedPeople;
 };
 
-exports.excludeByProperty = (property, payload) => payload.filter(entry => !entry.hasOwnProperty(property));
+exports.excludeByProperty = (flag, payload) => {
+  const doesNotHaveFlag = elem => !(has.call(elem, flag));
+  return payload.filter(doesNotHaveFlag);
+};
 
 exports.sumDeep = (payload) => {
   const reducer = (accum, element) => accum + element.val;
