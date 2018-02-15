@@ -14,8 +14,8 @@ exports.stripPrivateProperties = (secrets, people) => {
   const keys = person => Object.keys(person);
   const cleanKeys = key => !secrets.includes(key);
 
-  const arrayToObject = (object, currentValue) => {
-    object[currentValue[0]] = currentValue[1];
+  const arraysToObject = (object, currentArray) => {
+    object[currentArray[0]] = currentArray[1];
     return object;
   };
 
@@ -23,7 +23,7 @@ exports.stripPrivateProperties = (secrets, people) => {
     const cleanPerson = keys(person)
       .filter(cleanKeys)
       .map(key => [key, person[key]])
-      .reduce(arrayToObject, {});
+      .reduce(arraysToObject, {});
     return cleanPerson;
   };
 
@@ -36,8 +36,8 @@ exports.excludeByProperty = (flag, payload) => {
 };
 
 exports.sumDeep = (payload) => {
-  const reducer = (accum, element) => accum + element.val;
-  const sumTheObject = element => element.objects.reduce(reducer, 0);
+  const reducer = (accum, elem) => accum + elem.val;
+  const sumTheObject = elem => elem.objects.reduce(reducer, 0);
   return payload.map(sumTheObject).map(sum => ({ objects: sum }));
 };
 
@@ -116,3 +116,4 @@ exports.sanitizeUser = (user) => {
 
   return newUser;
 };
+
